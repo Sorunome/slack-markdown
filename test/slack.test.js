@@ -41,7 +41,7 @@ it("Should parse at here", () => {
 
 it("Should do custom at here parsing", () => {
 	expect(markdown.toHTML("hey <!here>!", {
-		slackCallbacks: { atHere: (node) => "@++here++" },
+		slackCallbacks: { atHere: () => "@++here++" },
 	})).toBe("hey <span class=\"s-mention s-at-here\">@++here++</span>!");
 });
 
@@ -52,7 +52,7 @@ it("Should parse at channel", () => {
 
 it("Should do custom at channel parsing", () => {
 	expect(markdown.toHTML("hey <!channel>!", {
-		slackCallbacks: { atChannel: (node) => "@++channel++" },
+		slackCallbacks: { atChannel: () => "@++channel++" },
 	})).toBe("hey <span class=\"s-mention s-at-channel\">@++channel++</span>!");
 });
 
@@ -63,7 +63,7 @@ it("Should parse at everyone", () => {
 
 it("Should do custom at everyone parsing", () => {
 	expect(markdown.toHTML("hey <!everyone>!", {
-		slackCallbacks: { atEveryone: (node) => "@++everyone++" },
+		slackCallbacks: { atEveryone: () => "@++everyone++" },
 	})).toBe("hey <span class=\"s-mention s-at-everyone\">@++everyone++</span>!");
 });
 

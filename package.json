@@ -1,6 +1,6 @@
 {
   "name": "slack-markdown",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A markdown parser for Slack messages",
   "keywords": [
     "slack",
@@ -9,7 +9,7 @@
     "md"
   ],
   "main": "index.js",
-  "repositor": "",
+  "repository": "https://github.com/Sorunome/slack-markdown.git",
   "author": "Sorunome",
   "constributors": [],
   "license": "Apache 2",
