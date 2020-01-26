@@ -82,3 +82,16 @@ it("Should handle block quotes with blank lines", () => {
 	expect(markdown.toHTML("> text\n> \n> here"))
 		.toBe("<blockquote>text<br><br>here</blockquote>");
 });
+
+it("Should emojify things", () => {
+	expect(markdown.toHTML("blah :fox: blah"))
+		.toBe("blah 🦊 blah");
+
+	expect(markdown.toHTML("blah :fox_face: blah"))
+		.toBe("blah 🦊 blah");
+});
+
+it("Should leave unknown emojis alone", () => {
+	expect(markdown.toHTML("blah :asdf: blah"))
+		.toBe("blah :asdf: blah");
+});

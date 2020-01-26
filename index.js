@@ -34,6 +34,40 @@ function htmlSlackTag(content, attributes, state) {
 	return htmlTag("span", content, attributes, state);
 }
 
+const rulesUniversal = {
+	emoji: {
+		order: markdown.defaultRules.strong.order,
+		match: (source) => /^:(\w+):/.exec(source),
+		parse: (capture) => {
+			const code = capture[1];
+			let e = emoji.get(code);
+			if (e === ":" + code + ":") {
+				e = emoji.get(code + "_face");
+				if (e === ":" + code + "_face:") {
+					e = ":" + code + ":";
+				}
+			}
+			return {
+				content: e,
+			};
+		},
+		html: (node) => {
+			return markdown.sanitizeText(node.content);
+		},
+	},
+	text: Object.assign({}, markdown.defaultRules.text, {
+		match: (source) => /^[\s\S]+?(?=[^0-9A-Za-z\s\u00c0-\uffff-]|\n\n|\n|\w+:\S|$)/.exec(source),
+		html: (node, output, state) => {
+			const content = emoji.emojify(node.content);
+			if (state.escapeHTML) {
+				return markdown.sanitizeText(content);
+			}
+
+			return content;
+		},
+	}),
+};
+
 const rules = {
 	blockQuote: Object.assign({}, markdown.defaultRules.blockQuote, {
 		match: (source, state, prevSource) => !/^$|\n *$/.test(prevSource) || state.inQuote ? null : /^( *> [^\n]*(\n *> [^\n]*)*\n?)/.exec(source),
@@ -112,21 +146,10 @@ const rules = {
 	strong: Object.assign({}, markdown.defaultRules.strong, {
 		match: markdown.inlineRegex(/^\*(\S(?:\\[\s\S]|[^\\])*?\S|\S)\*(?!\*)/),
 	}),
-	strike: Object.assign({ }, markdown.defaultRules.del, {
+	strike: Object.assign({}, markdown.defaultRules.del, {
 		match: markdown.inlineRegex(/^~(\S(?:\\[\s\S]|[^\\])*?\S|\S)~(?!~)/),
 	}),
 	inlineCode: markdown.defaultRules.inlineCode,
-	text: Object.assign({}, markdown.defaultRules.text, {
-		match: (source) => /^[\s\S]+?(?=[^0-9A-Za-z\s\u00c0-\uffff-]|\n\n|\n|\w+:\S|$)/.exec(source),
-		html: (node, output, state) => {
-			const content = emoji.emojify(node.content);
-			if (state.escapeHTML) {
-				return markdown.sanitizeText(content);
-			}
-
-			return content;
-		},
-	}),
 	br: Object.assign({ }, markdown.defaultRules.br, {
 		match: markdown.anyScopeRegex(/^\n/),
 	}),
@@ -272,20 +295,9 @@ const rulesSlack = {
 	}
 };
 Object.assign(rules, rulesSlack);
+Object.assign(rules, rulesUniversal);
 
-const rulesSlackOnly = Object.assign({}, rulesSlack, {
-	text: Object.assign({ }, markdown.defaultRules.text, {
-		match: (source) => /^[\s\S]+?(?=[^0-9A-Za-z\s\u00c0-\uffff-]|\n\n|\n|\w+:\S|$)/.exec(source),
-		html: (node, output, state) => {
-			const content = emoji.emojify(node.content);
-			if (state.escapeHTML) {
-				return markdown.sanitizeText(content);
-			}
-
-			return content;
-		},
-	}),
-});
+const rulesSlackOnly = Object.assign({}, rulesSlack, rulesUniversal);
 
 const parser = markdown.parserFor(rules);
 const htmlOutput = markdown.htmlFor(markdown.ruleOutput(rules, "html"));

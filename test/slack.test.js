@@ -70,4 +70,4 @@ it("Should do custom at everyone parsing", () => {
 it("Should disable the extra span tags, if set", () => {
 	expect(markdown.toHTML("hey <@ID|user>!", { noExtraSpanTags: true }))
 		.toBe("hey @user!");
-})
+});
