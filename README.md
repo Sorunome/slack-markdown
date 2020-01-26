@@ -19,7 +19,7 @@ toHTML("This *is* a _test_", options);
 
 `options` is an object with the following properties (all are optional):
 
- - `escapeHtml`: `boolean` (default: `true`), if HTML should be escaped or not
+ - `escapeHTML`: `boolean` (default: `true`), if HTML should be escaped or not
  - `slackOnly`: `boolean` (default: `false`), if only slack-specific markdown should be parsed
  - `slackCallbacks`: Object of the custom slack callbacks
    - `user`: (`id`: ID, `name`: Name) User mentions "<@ID|name>"
