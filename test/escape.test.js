@@ -12,3 +12,8 @@ it("Should properly escape URLs", () => {
 	expect(markdown.toHTML("<https://example.org?a&b>"))
 		.toBe("<a href=\"https://example.org?a&amp;b\">https://example.org?a&amp;b</a>")
 });
+
+it("Should not escape HTML, if the flag is set", () => {
+	expect(markdown.toHTML("<b>test</b>", { escapeHTML: false }))
+		.toBe("<b>test</b>");
+});
