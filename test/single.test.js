@@ -58,6 +58,11 @@ it("Should fence code blocks on one line", () => {
 		.toBe("<pre><code>test</code></pre>");
 });
 
+it("Should fence weird stuff", () => {
+	expect(markdown.toHTML("```codeblock `backtick````"))
+		.toBe("<pre><code>codeblock `backtick`</code></pre>");
+});
+
 it("Should HTML-escape fenced code blocks", () => {
 	expect(markdown.toHTML("`test`\n\n```<>```"))
 		.toBe("<code>test</code><br><br><pre><code>&lt;&gt;</code></pre>");

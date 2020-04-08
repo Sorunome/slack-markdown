@@ -89,7 +89,7 @@ const rules = {
 		},
 	}),
 	codeBlock: Object.assign({}, markdown.defaultRules.codeBlock, {
-		match: markdown.inlineRegex(/^```([^]+?)\n*```/i),
+		match: markdown.inlineRegex(/^```([^]+?`*)\n*```/i),
 		parse: (capture, parse, state) => {
 			return {
 				content: capture[1] || "",
