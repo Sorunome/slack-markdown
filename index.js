@@ -102,7 +102,6 @@ const rules = {
 		},
 	}),
 	newline: markdown.defaultRules.newline,
-	escape: markdown.defaultRules.escape,
 	autolink: Object.assign({}, markdown.defaultRules.autolink, {
 		order: markdown.defaultRules.strong.order + 1,
 		match: markdown.inlineRegex(/^<((?:https?:\/\/|mailto:)[^|>]+)(\|([^>]*))?>/),
@@ -134,6 +133,19 @@ const rules = {
 			return htmlTag("a", output(node.content, state), { href: markdown.sanitizeUrl(node.target) }, state);
 		},
 	}),
+	noem: {
+		order: markdown.defaultRules.text.order,
+		match: (source) => /^\\_/.exec(source),
+		parse: function(capture) {
+			return {
+				type: "text",
+				content: "\\_",
+			};
+		},
+		html: function(node, output, state) {
+			return output(node.content, state);
+		},
+	},
 	em: Object.assign({}, markdown.defaultRules.em, {
 		match: markdown.inlineRegex(/^\b_(\S(?:\\[\s\S]|[^\\])*?\S|\S)_(?!_)/),
 		parse: (capture, parse) => {

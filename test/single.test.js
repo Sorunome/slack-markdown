@@ -68,9 +68,9 @@ it("Should HTML-escape fenced code blocks", () => {
 		.toBe("<code>test</code><br><br><pre><code>&lt;&gt;</code></pre>");
 });
 
-it("Should escape marks", () => {
+it("Should not escape marks", () => {
 	expect(markdown.toHTML("Code: \\`1 + 1` = 2`"))
-		.toBe("Code: `1 + 1<code> = 2</code>");
+		.toBe("Code: \\<code>1 + 1</code> = 2`");
 });
 
 it("Should do simple block quotes", () => {
