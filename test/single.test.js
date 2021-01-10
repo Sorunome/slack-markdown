@@ -5,9 +5,14 @@ test("Should convert *text* to <strong>text</strong>", () => {
 		.toBe("This is a <strong>test</strong> with <strong>some bold</strong> text in it");
 });
 
-it("Should convert _text_ to <em>text</dem>", () => {
+it("Should convert _text_ to <em>text</em>", () => {
 	expect(markdown.toHTML("This is a _test_ with _some italicized_ text in it"))
 		.toBe("This is a <em>test</em> with <em>some italicized</em> text in it");
+});
+
+it("Should not convert inner_underscored_text to inner<em>underscored</em>text", () => {
+	expect(markdown.toHTML("This is a _test_ with some_italicized_text in it"))
+		.toBe("This is a <em>test</em> with some_italicized_text in it");
 });
 
 it("Should convert `text` to <code>text</code>", () => {

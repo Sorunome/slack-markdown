@@ -147,7 +147,7 @@ const rules = {
 		},
 	},
 	em: Object.assign({}, markdown.defaultRules.em, {
-		match: markdown.inlineRegex(/^\b_(\S(?:\\[\s\S]|[^\\])*?\S|\S)_(?!_)/),
+		match: markdown.inlineRegex(/^\b_(\S(?:\\[\s\S]|[^\\])*?\S|\S)_(?!_)\b/),
 		parse: (capture, parse) => {
 			return {
 				content: parse(capture[1]),

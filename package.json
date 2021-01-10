@@ -1,6 +1,6 @@
 {
   "name": "slack-markdown",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A markdown parser for Slack messages",
   "keywords": [
     "slack",
@@ -21,7 +21,7 @@
   "dependencies": {
     "escape-html": "^1.0.3",
     "node-emoji": "^1.10.0",
-    "simple-markdown": "^0.7.2"
+    "simple-markdown": "^0.7.3"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
