@@ -5,9 +5,14 @@ test("Should convert *text* to <strong>text</strong>", () => {
 		.toBe("This is a <strong>test</strong> with <strong>some bold</strong> text in it");
 });
 
-it("Should convert _text_ to <em>text</dem>", () => {
+it("Should convert _text_ to <em>text</em>", () => {
 	expect(markdown.toHTML("This is a _test_ with _some italicized_ text in it"))
 		.toBe("This is a <em>test</em> with <em>some italicized</em> text in it");
+});
+
+it("Should not convert inner_underscored_text to inner<em>underscored</em>text", () => {
+	expect(markdown.toHTML("This is a _test_ with some_italicized_text in it"))
+		.toBe("This is a <em>test</em> with some_italicized_text in it");
 });
 
 it("Should convert `text` to <code>text</code>", () => {
@@ -58,14 +63,19 @@ it("Should fence code blocks on one line", () => {
 		.toBe("<pre><code>test</code></pre>");
 });
 
+it("Should fence weird stuff", () => {
+	expect(markdown.toHTML("```codeblock `backtick````"))
+		.toBe("<pre><code>codeblock `backtick`</code></pre>");
+});
+
 it("Should HTML-escape fenced code blocks", () => {
 	expect(markdown.toHTML("`test`\n\n```<>```"))
 		.toBe("<code>test</code><br><br><pre><code>&lt;&gt;</code></pre>");
 });
 
-it("Should escape marks", () => {
+it("Should not escape marks", () => {
 	expect(markdown.toHTML("Code: \\`1 + 1` = 2`"))
-		.toBe("Code: `1 + 1<code> = 2</code>");
+		.toBe("Code: \\<code>1 + 1</code> = 2`");
 });
 
 it("Should do simple block quotes", () => {

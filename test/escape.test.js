@@ -17,3 +17,8 @@ it("Should not escape HTML, if the flag is set", () => {
 	expect(markdown.toHTML("<b>test</b>", { escapeHTML: false }))
 		.toBe("<b>test</b>");
 });
+
+it("Should not lose arms", () => {
+	expect(markdown.toHTML("¯\\_(ツ)_/¯"))
+		.toBe("¯\\_(ツ)_/¯");
+});
