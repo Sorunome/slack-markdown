@@ -136,7 +136,7 @@ const rules = {
 	noem: {
 		order: markdown.defaultRules.text.order,
 		match: (source) => /^\\_/.exec(source),
-		parse: function(capture) {
+		parse: function() {
 			return {
 				type: "text",
 				content: "\\_",

@@ -71,3 +71,8 @@ it("Should disable the extra span tags, if set", () => {
 	expect(markdown.toHTML("hey <@ID|user>!", { noExtraSpanTags: true }))
 		.toBe("hey @user!");
 });
+
+it("should prioritize links", () => {
+	expect(markdown.toHTML("Hey _beep <https://example.org|hmm_yeah>"))
+		.toBe("Hey _beep <a href=\"https://example.org\">hmm_yeah</a>");
+});

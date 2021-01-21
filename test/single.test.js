@@ -105,3 +105,8 @@ it("Should leave unknown emojis alone", () => {
 	expect(markdown.toHTML("blah :asdf: blah"))
 		.toBe("blah :asdf: blah");
 });
+
+it("Should not italicize in words", () => {
+	expect(markdown.toHTML("_this is italic_regular"))
+		.toBe("_this is italic_regular");
+});
