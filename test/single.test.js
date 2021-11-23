@@ -95,10 +95,10 @@ it("Should handle block quotes with blank lines", () => {
 
 it("Should emojify things", () => {
 	expect(markdown.toHTML("blah :fox: blah"))
-		.toBe("blah 🦊 blah");
+		.toBe("blah <span class=\"s-emoji\">🦊</span> blah");
 
 	expect(markdown.toHTML("blah :fox_face: blah"))
-		.toBe("blah 🦊 blah");
+		.toBe("blah <span class=\"s-emoji\">🦊</span> blah");
 });
 
 it("Should leave unknown emojis alone", () => {

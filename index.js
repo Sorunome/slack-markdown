@@ -48,11 +48,14 @@ const rulesUniversal = {
 				}
 			}
 			return {
+				isEmoji: !(e === ":" + code + ":"),
 				content: e,
 			};
 		},
-		html: (node) => {
-			return markdown.sanitizeText(node.content);
+		html: (node, output, state) => {
+			const content = markdown.sanitizeText(node.content);
+			if (!node.isEmoji) return content;
+			return htmlSlackTag(content, { class: "s-emoji" }, state);
 		},
 	},
 	text: Object.assign({}, markdown.defaultRules.text, {
