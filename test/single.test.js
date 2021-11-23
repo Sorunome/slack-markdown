@@ -99,6 +99,9 @@ it("Should emojify things", () => {
 
 	expect(markdown.toHTML("blah :fox_face: blah"))
 		.toBe("blah <span class=\"s-emoji\">🦊</span> blah");
+
+	expect(markdown.toHTML("blah :fox: blah", { noExtraEmojiSpanTags: true }))
+		.toBe("blah 🦊 blah");
 });
 
 it("Should leave unknown emojis alone", () => {
