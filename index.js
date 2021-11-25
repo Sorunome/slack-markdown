@@ -107,7 +107,7 @@ const rules = {
 	newline: markdown.defaultRules.newline,
 	autolink: Object.assign({}, markdown.defaultRules.autolink, {
 		order: markdown.defaultRules.strong.order + 1,
-		match: markdown.inlineRegex(/^<((?:https?:\/\/|mailto:)[^|>]+)(\|([^>]*))?>/),
+		match: markdown.inlineRegex(/^<((?:(?:(?:ht|f)tps?|ssh|irc):\/\/|mailto:|tel:)[^|>]+)(\|([^>]*))?>/),
 		parse: (capture, parse, state) => {
 			const content = capture[3] ? parse(capture[3], state) : [{
 				type: "text",
