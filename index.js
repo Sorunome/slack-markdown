@@ -48,11 +48,14 @@ const rulesUniversal = {
 				}
 			}
 			return {
+				isEmoji: !(e === ":" + code + ":"),
 				content: e,
 			};
 		},
-		html: (node) => {
-			return markdown.sanitizeText(node.content);
+		html: (node, output, state) => {
+			const content = markdown.sanitizeText(node.content);
+			if (!node.isEmoji || state.noExtraEmojiSpanTags) return content;
+			return htmlTag("span", content, { class: "s-emoji" }, state);
 		},
 	},
 	text: Object.assign({}, markdown.defaultRules.text, {
@@ -323,6 +326,7 @@ function toHTML(source, opts) {
 		slackCallbacks: {},
 		cssModuleNames: {},
 		noExtraSpanTags: false,
+		noExtraEmojiSpanTags: false,
 	}, opts || {});
 	let _parser = parser;
 	let _htmlOutput = htmlOutput;
@@ -338,6 +342,7 @@ function toHTML(source, opts) {
 		cssModuleNames: options.cssModuleNames,
 		slackCallbacks: Object.assign({}, slackCallbackDefaults, options.slackCallbacks),
 		noExtraSpanTags: options.noExtraSpanTags,
+		noExtraEmojiSpanTags: options.noExtraEmojiSpanTags,
 	};
 
 	return _htmlOutput(_parser(source, state), state);

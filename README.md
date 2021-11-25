@@ -31,3 +31,4 @@ toHTML("This *is* a _test_", options);
    - `date`: (`timestamp`: Timestamp, `format`: Format, `link`: Optional link, `fallback`: fallback string) Date mentions "<!date^timestamp^format^link|fallback>"
   - `cssModuleNames`: `object`, name mapping of CSS classes to custom ones
   - `noExtraSpanTags`: `boolean` (default: `false`) Disable the addition of extra span tags on slack-specific parsing
+  - `noExtraEmojiSpanTags`: `boolean` (default: `false`) Disable the addition of extra span tags around emojis
