@@ -37,24 +37,17 @@ function htmlSlackTag(content, attributes, state) {
 const rulesUniversal = {
 	emoji: {
 		order: markdown.defaultRules.strong.order,
-		match: (source) => /^:([a-zA-Z0-9_\-\+]+):/.exec(source),
+		match: (source) => /^:([a-zA-Z0-9_\-+]+):/.exec(source),
 		parse: (capture) => {
 			const code = capture[1];
 
 			// slack uses <emoji>_face sometimes, so fallback to that
 			const result = emoji.findByName(code) || emoji.findByName(code + "_face");
 
-			if (result) {
-				return {
-					content: result.emoji,
-					isEmoji: true,
-				};
-			} else {
-				return {
-					content: `:${code}:`,
-					isEmoji: false,
-				};
-			}
+			return {
+				content: result ? result.emoji : `:${code}:`,
+				isEmoji: !!result,
+			};
 		},
 		html: (node, output, state) => {
 			const content = markdown.sanitizeText(node.content);
