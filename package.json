@@ -2,6 +2,7 @@
   "name": "slack-markdown",
   "version": "0.1.1",
   "description": "A markdown parser for Slack messages",
+  "types": "index.d.ts",
   "keywords": [
     "slack",
     "markdown",
