@@ -25,6 +25,11 @@ it("Should convert ~text~ to <del>text</del>", () => {
 		.toBe("<del>this</del>that");
 });
 
+it("Should convert ~this\\nthat~\\n and ~those~ to ~this<br>that~<br> and <del>those</del>", () => {
+	expect(markdown.toHTML("~this\nthat~\n and ~those~"))
+		.toBe("~this<br>that~<br> and <del>those</del>");
+});
+
 it("Should leave ~ test ~ alone", () => {
 	expect(markdown.toHTML("this ~ is a ~ test"))
 		.toBe("this ~ is a ~ test");

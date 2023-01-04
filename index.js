@@ -159,7 +159,7 @@ const rules = {
 		match: markdown.inlineRegex(/^\*(\S(?:\\[\s\S]|[^\\])*?\S|\S)\*(?!\*)/),
 	}),
 	strike: Object.assign({}, markdown.defaultRules.del, {
-		match: markdown.inlineRegex(/^~(\S(?:\\[\s\S]|[^\\])*?\S|\S)~(?!~)/),
+		match: markdown.inlineRegex(/^~(\w+)~/),
 	}),
 	inlineCode: markdown.defaultRules.inlineCode,
 	br: Object.assign({ }, markdown.defaultRules.br, {
