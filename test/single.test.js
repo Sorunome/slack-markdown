@@ -48,6 +48,16 @@ it("Should parse named links contents", () => {
 		.toBe("<a href=\"https://example.org\">this is <strong>awesome</strong></a>");
 });
 
+it("Should respect hrefTarget on unnamed links", () => {
+	expect(markdown.toHTML("<https://example.org>", { hrefTarget: "_blank" }))
+		.toBe("<a href=\"https://example.org\" target=\"_blank\">https://example.org</a>")
+});
+
+it("Should respect hrefTarget on named links", () => {
+	expect(markdown.toHTML("<https://example.org|example>", { hrefTarget: "_blank" }))
+		.toBe("<a href=\"https://example.org\" target=\"_blank\">example</a>")
+});
+
 it("Should parse new lines", () => {
 	expect(markdown.toHTML("new\nline"))
 		.toBe("new<br>line");

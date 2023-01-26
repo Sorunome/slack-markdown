@@ -1,6 +1,6 @@
 {
   "name": "slack-markdown",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A markdown parser for Slack messages",
   "types": "index.d.ts",
   "keywords": [

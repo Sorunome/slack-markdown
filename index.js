@@ -116,7 +116,11 @@ const rules = {
 			};
 		},
 		html: (node, output, state) => {
-			return htmlTag("a", output(node.content, state), { href: markdown.sanitizeUrl(node.target) }, state);
+			const attrs = { href: markdown.sanitizeUrl(node.target) };
+			if (state.hrefTarget) {
+				attrs.target = state.hrefTarget;
+			}
+			return htmlTag("a", output(node.content, state), attrs, state);
 		},
 	}),
 	url: Object.assign({ }, markdown.defaultRules.url, {
@@ -130,7 +134,11 @@ const rules = {
 			}
 		},
 		html: (node, output, state) => {
-			return htmlTag("a", output(node.content, state), { href: markdown.sanitizeUrl(node.target) }, state);
+			const attrs = { href: markdown.sanitizeUrl(node.target) };
+			if (state.hrefTarget) {
+				attrs.target = state.hrefTarget;
+			}
+			return htmlTag("a", output(node.content, state), attrs, state);
 		},
 	}),
 	noem: {
@@ -324,6 +332,7 @@ function toHTML(source, opts) {
 		cssModuleNames: {},
 		noExtraSpanTags: false,
 		noExtraEmojiSpanTags: false,
+		hrefTarget: "",
 	}, opts || {});
 	let _parser = parser;
 	let _htmlOutput = htmlOutput;
@@ -340,6 +349,7 @@ function toHTML(source, opts) {
 		slackCallbacks: Object.assign({}, slackCallbackDefaults, options.slackCallbacks),
 		noExtraSpanTags: options.noExtraSpanTags,
 		noExtraEmojiSpanTags: options.noExtraEmojiSpanTags,
+		hrefTarget: options.hrefTarget,
 	};
 
 	return _htmlOutput(_parser(source, state), state);

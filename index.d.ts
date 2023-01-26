@@ -18,6 +18,8 @@ export interface SlackMarkdownOptions {
   noExtraSpanTags?: boolean,
   /** Disable the addition of extra span tags around emojis (default: false) */
   noExtraEmojiSpanTags?: boolean
+  /** Set the target for `<a>` tags */
+  hrefTarget?: string,
 }
 
 export interface SlackCallbackOptions {

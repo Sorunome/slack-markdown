@@ -32,3 +32,4 @@ toHTML("This *is* a _test_", options);
   - `cssModuleNames`: `object`, name mapping of CSS classes to custom ones
   - `noExtraSpanTags`: `boolean` (default: `false`) Disable the addition of extra span tags on slack-specific parsing
   - `noExtraEmojiSpanTags`: `boolean` (default: `false`) Disable the addition of extra span tags around emojis
+  - `hrefTarget`: `string` (default: empty) The target for hyperlinks, e.g. "_blank" for a new tab
